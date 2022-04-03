@@ -1,16 +1,52 @@
-# Vue 3 + Typescript + Vite
+# Insly Fullstack Test Asignment
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+![Insly logo](https://insly.com/en/wp-content/themes/Bonamore/img/logo.svg)
+- Test it online [https://insly-car-ui.herokuapp.com/](https://insly-car-ui.herokuapp.com/)
+- Backend [https://github.com/melmartinez-dev/insly-car-api](https://github.com/melmartinez-dev/insly-car-api)
+## Task
+Write a simple car insurance calculator which will output price of the policy using vanilla PHP and ReactJS or VueJS.
 
-## Recommended IDE Setup
+Create a form with following fields:
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+   - a. Estimated value of the car.
 
-## Type Support For `.vue` Imports in TS
+     - i. Minimum value 100 EUR
+     - ii. Maximum value 100000 EUR
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+   - b. Tax percentage
 
-1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+     - i. From range 0 – 100 %
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+   - c. Number of policy installments – count of payments in which the client wants to pay for the policy
+
+     - i. From range 1 – 12
+
+   - d. Calculation button
+
+Output a table with the result as a Modal. When clicking on the background then the modal should close.
+
+![Table example](https://i.imgur.com/yfwXd5y.png)
+
+### Local Deploy
+
+To deploy locally follow the steps:
+
+```sh
+npm install
+npm run dev
+```
+Dev server will be listening at port 3000
+
+### Using Docker
+
+Build image:
+```sh
+docker build --pull --rm -f "Dockerfile" -t inslycarui:latest "." <
+```
+
+Run the created container
+```sh
+docker run -d -p8000:80 inslycarui
+```
+
+Visit webpage http://localhost:8000
