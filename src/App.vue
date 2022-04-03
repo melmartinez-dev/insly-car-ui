@@ -6,7 +6,11 @@
           <calculator-card @show-dialog="handleShowDialog" />
         </q-page>
       </q-page-container>
-      <results-dialog :show-dialog="showDialog" :data="policyInstallmentsCalculationData" />
+      <results-dialog
+        :show-dialog="showDialog"
+        @close-dialog="handleHideDialog"
+        :data="policyInstallmentsCalculationData"
+      />
     </q-layout>
   </div>
 </template>
@@ -25,10 +29,14 @@ export default defineComponent({
       policyInstallmentsCalculationData.value = data;
       showDialog.value = true;
     }
+    const handleHideDialog = () => {
+      showDialog.value = false;
+    }
     return {
       policyInstallmentsCalculationData,
       showDialog,
-      handleShowDialog
+      handleShowDialog,
+      handleHideDialog
     }
   }
 })
