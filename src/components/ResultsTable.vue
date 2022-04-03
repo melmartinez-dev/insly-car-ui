@@ -32,7 +32,7 @@ const props = defineProps<Props>();
 //Define table headers
 const headers = computed<string[]>(() => concat(
     ["", "Policy"],
-    map.convert({ cap: false })((value: string, index: number) => `${index + 1} installment`)(props.data?.installments))
+    map((index: number) => `${index + 1} installment`)([...new Array(props.data?.installments.length).keys()]))
 );
 //Define total value row
 const valueArray = computed<string[]>(() => fill(2, headers.value.length, "")(["Value", props.data?.carValue.toFixed(2), ...Array(headers.value.length - 2)]));
@@ -41,15 +41,15 @@ const leftHeaders = computed(() => [`Base Price (${props.data?.policyPercentage}
 //Method to transform every payment into an ordered array
 const extractPaymentFields = (payment: Payment) => {
     const { basePrice, commission, tax, total } = payment;
-    return map((value:number)=> value.toFixed(2))([basePrice, commission, tax, total]);
+    return map((value: number) => value.toFixed(2))([basePrice, commission, tax, total]);
 }
 //Append left column to resulting array
-const addLeftHeaders = (data: string[], index: number) => [leftHeaders.value[index], ...data];
+const addLeftHeaders = (data: string[][]) => leftHeaders.value.map((leftHeader, index) => concat(leftHeader, data[index]));
 //Transforms array of payments into an unzipped array and adds the left column
-const formatDataWithHeaders: (payments: Payment[]) => string[] = pipe(
+const formatDataWithHeaders: (payments: Payment[]) => string[][] = pipe(
     map(extractPaymentFields),
     unzip,
-    map.convert({ cap: false })(addLeftHeaders)
+    addLeftHeaders
 );
 //Resulting array as a computed property
 const formattedDataWithHeaders = computed(() => formatDataWithHeaders(
