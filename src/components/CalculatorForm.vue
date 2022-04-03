@@ -49,11 +49,12 @@
     </q-form>
 </template>
 <script setup lang="ts">
+import { useQuasar } from 'quasar';
 import { ref } from 'vue'
 import apiService from "../services/api-service"
 import { PolicyInstallmentsCalculation } from '../types/types';
 
-
+const $q = useQuasar();
 const emit = defineEmits<{
     (e: "show-dialog", data: PolicyInstallmentsCalculation): void
 }>();
@@ -71,7 +72,15 @@ const onSubmit = () => {
         userTime: new Date().toISOString()
     }).then(response => {
         emit("show-dialog", response.data);
-    }).finally(() => { loading.value = false })
+    }).catch(() => {
+        $q.notify({
+            color: "negative",
+            message: "An error ocurrend when calling API",
+            position: "top-right",
+            icon: "report_problem"
+        });
+    })
+        .finally(() => { loading.value = false })
 }
 
 </script>
