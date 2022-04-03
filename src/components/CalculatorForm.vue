@@ -8,7 +8,7 @@
             dark
             outlined
             suffix="€"
-            mask="#####"
+            mask="######"
             :rules="[input => input >= 100 && input <= 100000 || 'Must be between 100€ and 100000€']"
         ></q-input>
         <q-input
